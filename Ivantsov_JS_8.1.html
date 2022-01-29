@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivantsov_JS_8.1</title>
+    <style>
+        .success {
+            border-color: green;
+            border-style: solid;
+            border-width: 3px;
+            }
+    </style>
+    <script>
+        {
+            "use strict";
+            function validateEmail(email) {
+                let domain = email.split('@')[1],
+                    preDomain = email.split('@')[0],
+                    correctMail = ['mail.ru', 'gmail.com', 'mail.kz', 'yandex.ru', 'inbox.ru', 'yahoo.com'],
+                    check = false;
+                correctMail.forEach(item => {
+                    if (item == domain && preDomain !== '') {
+                        check = true;
+                    }
+                });
+                return check;
+                console.log(check);
+            }
+            
+            // С зеленым цветом, конечно, костыль в три обхвата))
+            function checkInputEmail(currentEmailAddress) {
+                let checkInput = validateEmail(currentEmailAddress);
+                if (checkInput == false) {
+                    let accept = document.getElementsByName('Email')[0];
+                    accept.className = '';
+                    alert('Введите корректный e-mail')
+                } else {
+                    let accept = document.getElementsByName('Email')[0];
+                    accept.className = 'success';
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form action="http://www.ya.ru" method="post">
+        <label>Имя: <br><input type="text" name="Fname"></label><br>
+        <label>Фамилия: <br><input type="text" name="Lname"></label><br>
+        <label>Email: <br><input type="text" name="Email" onblur="checkInputEmail(this.value)"></label><br><br>
+        <input name="Submit" value="Submit" type="submit" />
+        <input name="Reset" value="Reset" type="reset" />
+    </form>
+</body>
+
+</html>

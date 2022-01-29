@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivantsov_JS_8.3</title>
+    <script>
+        {
+            "use strict";
+            let vehicleType;
+            // Выводим отправляемую инфу из формы в объекте в консоль
+            logs = () => {
+                event.preventDefault();
+                let model = document.getElementsByName('OptionList')[0].value,
+                    result = { vehicleType: vehicleType, model: model };
+                console.log(result);
+            }
+            function buildOptions(objData, root) {
+                for (key in objData) {
+                    let option = document.createElement('option');
+                    option.value = objData[key].value;
+                    option.innerText = objData[key].name;
+                    root.appendChild(option);
+                }
+            }
+            function ResetOptionList(ElementValue) {
+                let cars = document.forms.transport;
+                let listCars = {
+                    moto: {
+                        0: {
+                            name: "Classic",
+                            value: 1
+                        },
+                        1: {
+                            name: "Police Cruiser",
+                            value: 2
+                        },
+                        2: {
+                            name: "Harley Davidson",
+                            value: 3
+                        },
+                        3: {
+                            name: "Kawasaki",
+                            value: 4
+                        }
+                    },
+                    cars: {
+                        0: {
+                            name: "Ford Focus",
+                            value: 1
+                        },
+                        1: {
+                            name: "Chevrolet Niva",
+                            value: 2
+                        },
+                        2: {
+                            name: "Lada Vesta",
+                            value: 3
+                        },
+                        3: {
+                            name: "Chevrolet Tahoe",
+                            value: 4
+                        }
+                    }
+                }
+                if (ElementValue == 1) {
+                    transport.OptionList.innerHTML = "";
+                    buildOptions(listCars.moto, transport.OptionList);
+                    vehicleType = ElementValue; 
+                }
+                if (ElementValue == 2) {
+                    transport.OptionList.innerHTML = "";
+                    buildOptions(listCars.cars, transport.OptionList);
+                    vehicleType = ElementValue; 
+                }
+            }
+        }
+    </script>
+    <style>
+        .typeOfVehicles label {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="transport" action="http://www.auto.ru" method="post">
+        <select name="OptionList" size="5" style="min-width: 110px;">
+            <option value=1></option>
+            <option value=2></option>
+            <option value=3></option>
+            <option value=4></option>
+            <option value=5></option>
+        </select>
+        <div class="typeOfVehicles">
+            <label><input type="radio" name="vehicles" value=1
+                    onclick="ResetOptionList(this.value);">Motorcycles</label>
+            <label><input type="radio" name="vehicles" value=2 onclick="ResetOptionList(this.value);">Cars</label>
+        </div><br>
+        <input name="Submit" value="Submit" type="submit" onclick="logs();" />
+        <input name="Reset" value="Reset" type="reset" onclick="logs();" />
+    </form>
+</body>
+
+</html>
